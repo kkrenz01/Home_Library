@@ -1,0 +1,44 @@
+﻿@model Home_Library.Models.LibraryViewModel
+
+@{
+    ViewData["actionName"] = ViewContext.RouteData.Values["action"];
+}
+
+
+<div>
+  <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" style="margin-right: 50px;">@Model.Name: @Model.Description</a>
+        
+        <form class="d-flex" asp-controller="Libraries" asp-action="Index" method="GET">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li class="nav-item">
+                @if(ViewData["actionName"]?.ToString() == "List") {
+                    <span>View: </span>
+                    <input class = "btn btn-secondary" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Table" />
+                    <input class = "btn btn-secondary" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Grid" />
+                }
+                <span>Actions: </span>
+                <a class="btn btn-secondary" id="listBtn" role="button" asp-action="List" asp-route-id="@Model.Id">List</a>
+                <a class="btn btn-secondary" id="assignBtn" role="button" asp-action="Assign" asp-route-id="@Model.Id">Assign</a>
+                <a class="btn btn-secondary" id="unassignBtn" role="button" asp-action="Unassign" asp-route-id="@Model.Id">Unassign</a>
+            </li>
+        </ul>
+        </form>
+      </div>
+   </nav>
+</div><br />
+
+@if (ViewData["actionName"]?.ToString() == "List")
+{
+    <script>document.getElementById("listBtn").classList.add("disabled");</script>
+}
+else if (ViewData["actionName"]?.ToString() == "Assign")
+{
+    <script>document.getElementById("assignBtn").classList.add("disabled");</script>
+}
+else if (ViewData["actionName"]?.ToString() == "Unassign")
+{
+    <script>document.getElementById("unassignBtn").classList.add("disabled");</script>
+}

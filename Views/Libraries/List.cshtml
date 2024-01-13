@@ -1,0 +1,91 @@
+﻿@model Home_Library.Models.LibraryViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<style>
+    .cover {
+        max-height: 256px;
+        height:auto;
+    }
+
+    .coverImg {
+        display: block;
+        max-width: 256px;
+        max-height: 226px;
+        width: auto;
+        height: auto;
+        border: 1px solid black;
+    }
+
+    .gridItem {
+        margin-bottom:20px;
+        /* background-color: #f7f7f9; */
+    }
+
+</style>
+
+<partial name="_header" />
+
+@if(Model.Style == "Table" || Model.Style == null)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Developer)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Publisher)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Platform)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].ReleaseDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Games!.Count > 0)
+            {
+                foreach (var item in Model.Games!)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Developer</td>
+                        <td>@item.Publisher</td>
+                        <td>@item.Platform</td>
+                        <td>@item.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            } else
+            {
+                <tr style="text-align: center">
+                    <td colspan="5">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} else if (Model.Style == "Grid") {
+
+    <div class="row">
+    @foreach(var item in Model.Games!)
+    {
+        <div class="col-sm-4">
+            <div class="card card-game gridItem">
+                <div class="card-body">
+                    <span class="cover"><img class="coverImg" src="@item.CoverPath"></span>
+                    <br><br>
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">
+                        <span>@item.Developer \ @item.Publisher</span><br>
+                        <span>Release date: @item.ReleaseDate.ToString("yyyy-MM-dd")</span><br>
+                        <span>Platform: @item.Platform</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+}
+
+
+@if((Model.Games!.Count < 1) && (Model.Style == "Grid"))
+{
+    <div style="text-align: center;"><p>No data available</p></div>
+}

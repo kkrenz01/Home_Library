@@ -1,0 +1,44 @@
+﻿@model Home_Library.Models.LibraryViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<partial name="_header" />
+
+<form asp-controller="Libraries" asp-action="Assign">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Developer)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Publisher)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].Platform)</th>
+                <th>@Html.DisplayNameFor(model => model.Games![0].ReleaseDate)</th>
+                <th>Assign</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Games!)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Developer</td>
+                    <td>@item.Publisher</td>
+                    <td>@item.Platform</td>
+                    <td>@item.ReleaseDate.ToString("yyyy-MM-dd")</td>
+
+                    <td><input class="form-check-input big-checkbox" type="checkbox" name="selectedItemIds" value="@item.Id"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        @if (Model.Games.Count == 0) {<div style="text-align: center;"><p>No data available</p></div>}
+        <button class="btn btn-primary" asp-action="List" asp-route-id="@Model.Id">Back to List</button>
+        @if (Model.Games.Count > 0) { <button type='submit' class='btn btn-primary'>Confirm</button> }
+    </div>
+    
+</form>
