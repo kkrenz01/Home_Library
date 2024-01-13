@@ -22,7 +22,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Start</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Libraries" asp-action="Index">Libraries</a>
@@ -45,7 +45,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Klaudiusz Krenz</a>
+            &copy; 2024 - Klaudiusz Krenz
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

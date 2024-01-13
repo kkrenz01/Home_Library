@@ -240,7 +240,7 @@ namespace Home_Library.Controllers
 
             }
 
-            return RedirectToAction(nameof(List), new {id = id});
+            return RedirectToAction(nameof(List), new { id = id });
         }
 
         public async Task<IActionResult> Unassign(int? id)

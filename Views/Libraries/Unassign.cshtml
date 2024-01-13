@@ -20,24 +20,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Games!)
+            @if (Model.Games!.Count > 0)
             {
-                <tr>
-                    <td>@item.Title</td>
-                    <td>@item.Developer</td>
-                    <td>@item.Publisher</td>
-                    <td>@item.Platform</td>
-                    <td>@item.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                @foreach (var item in Model.Games!)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Developer</td>
+                        <td>@item.Publisher</td>
+                        <td>@item.Platform</td>
+                        <td>@item.ReleaseDate.ToString("yyyy-MM-dd")</td>
 
-                    <td><input class="form-check-input big-checkbox" type="checkbox" name="selectedItemIds" value="@item.Id"></td>
+                        <td><input class="form-check-input big-checkbox" type="checkbox" name="selectedItemIds" value="@item.Id"></td>
+                    </tr>
+                }
+            } else
+            {
+                <tr style="text-align: center">
+                    <td colspan="6">No data available</td>
                 </tr>
             }
+            
         </tbody>
     </table>
 
     <div>
-        @if (Model.Games.Count < 1) {<div style="text-align: center;"><p>No data available</p></div>}
-        <button class="btn btn-primary" asp-action="List" asp-route-id="@Model.Id">Back to List</button>
         @if (Model.Games.Count > 1) { <button type='submit' class='btn btn-primary'>Confirm</button> }
     </div>
 
