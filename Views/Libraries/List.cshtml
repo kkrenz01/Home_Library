@@ -4,28 +4,6 @@
     ViewData["Title"] = Model.Name;
 }
 
-<style>
-    .cover {
-        max-height: 256px;
-        height:auto;
-    }
-
-    .coverImg {
-        display: block;
-        max-width: 256px;
-        max-height: 226px;
-        width: auto;
-        height: auto;
-        border: 1px solid black;
-    }
-
-    .gridItem {
-        margin-bottom:20px;
-        /* background-color: #f7f7f9; */
-    }
-
-</style>
-
 <partial name="_header" />
 
 @if(Model.Style == "Table" || Model.Style == null)
@@ -46,7 +24,7 @@
                 foreach (var item in Model.Games!)
                 {
                     <tr>
-                        <td>@item.Title</td>
+                        <td><a class="titleLink" asp-controller="Games" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></td>
                         <td>@item.Developer</td>
                         <td>@item.Publisher</td>
                         <td>@item.Platform</td>
@@ -66,12 +44,14 @@
     <div class="row">
     @foreach(var item in Model.Games!)
     {
+        @if(!System.IO.File.Exists("wwwroot"+item.CoverPath)) {item.CoverPath = "\\Images\\covers\\_blank.jpg";}
+
         <div class="col-sm-4">
             <div class="card card-game gridItem">
                 <div class="card-body">
                     <span class="cover"><img class="coverImg" src="@item.CoverPath"></span>
-                    <br><br>
-                    <h5 class="card-title">@item.Title</h5>
+                    <br>
+                    <h5 class="card-title"><a class="titleLink" asp-controller="Games" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h5>
                     <p class="card-text">
                         <span>@item.Developer \ @item.Publisher</span><br>
                         <span>Release date: @item.ReleaseDate.ToString("yyyy-MM-dd")</span><br>

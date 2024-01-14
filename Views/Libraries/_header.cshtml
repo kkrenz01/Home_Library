@@ -4,8 +4,6 @@
     ViewData["actionName"] = ViewContext.RouteData.Values["action"];
 }
 
-
-<div>
   <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
         <a class="navbar-brand" style="margin-right: 50px;">@Model.Name: @Model.Description</a>
@@ -16,10 +14,11 @@
             <li class="nav-item">
                 @if(ViewData["actionName"]?.ToString() == "List") {
                     <span>View: </span>
-                    <input class = "btn btn-secondary" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Table" />
-                    <input class = "btn btn-secondary" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Grid" />
+                    <input class = "btn btn-secondary" id="tableBtn" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Table" />
+                    <input class = "btn btn-secondary" id="gridBtn" type="submit" asp-action="List" asp-route-id="@Model.Id" asp-for="Style" value="Grid" />
                 }
-                <span>Actions: </span>
+
+                <span style="padding-left: 10px;">Actions: </span>
                 <a class="btn btn-secondary" id="listBtn" role="button" asp-action="List" asp-route-id="@Model.Id">List</a>
                 <a class="btn btn-secondary" id="assignBtn" role="button" asp-action="Assign" asp-route-id="@Model.Id">Assign</a>
                 <a class="btn btn-secondary" id="unassignBtn" role="button" asp-action="Unassign" asp-route-id="@Model.Id">Unassign</a>
@@ -28,7 +27,15 @@
         </form>
       </div>
    </nav>
-</div><br />
+<br />
+
+@if(Model.Style == "Grid")
+{
+    <script>document.getElementById("gridBtn").classList.add("disabled");</script>
+} else
+{
+    <script>document.getElementById("tableBtn").classList.add("disabled");</script>
+}
 
 @if (ViewData["actionName"]?.ToString() == "List")
 {

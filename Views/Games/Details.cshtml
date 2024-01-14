@@ -4,45 +4,54 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Game Details</h1>
 
 <div>
-    <h4>Game</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Developer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Developer)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Platform)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Platform)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-    </dl>
+    <div class="row">
+        <dl class="row col-6" style="max-height: 200px;">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Developer)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Developer)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Publisher)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Platform)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Platform)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.ReleaseDate)
+            </dd>
+        </dl>
+
+        @if (Model.CoverPath == null) {Model.CoverPath = "\\Images\\covers\\games\\_blank.jpg";}
+        <div class="col">
+            <div class="cover" style="width: auto; height: auto;">
+                <img style="width:auto;height:500px; border: 1px solid black; align-content:center" src="@Model.CoverPath" />
+            </div>
+        </div>
+    </div>
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Go to Game List</a>
 </div>

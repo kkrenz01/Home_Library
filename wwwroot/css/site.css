@@ -18,5 +18,43 @@ html {
 }
 
 body {
+  padding-top: 70px;
   margin-bottom: 60px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0px;
+    height: 40px;
+    width: -webkit-fill-available;
+    width: -moz-available;
+}
+
+.titleLink {
+    color: black;
+    text-decoration: none;
+}
+
+    .titleLink:hover {
+        color: black;
+        text-decoration: underline;
+    }
+
+.cover {
+    max-height: 256px;
+    height: auto;
+}
+
+.coverImg {
+    display: block;
+    max-width: 256px;
+    max-height: 226px;
+    width: auto;
+    height: auto;
+    border: 1px solid black;
+}
+
+.gridItem {
+    margin-bottom: 20px;
+    /* background-color: #f7f7f9; */
 }

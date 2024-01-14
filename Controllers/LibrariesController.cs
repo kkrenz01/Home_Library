@@ -36,14 +36,13 @@ namespace Home_Library.Controllers
         // GET: Libraries/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
+
+            if (id == null) { return NotFound(); }
 
             var library = await _context.Library
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (library == null)
+            if (library == null || library.UserId != user.Id)
             {
                 return NotFound();
             }
@@ -79,16 +78,12 @@ namespace Home_Library.Controllers
         // GET: Libraries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
             var library = await _context.Library.FindAsync(id);
-            if (library == null)
-            {
-                return NotFound();
-            }
+
+            if (id == null) { return NotFound(); }
+            if (library == null || library.UserId != user.Id) { return NotFound(); }
+
             return View(library);
         }
 
@@ -97,7 +92,7 @@ namespace Home_Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Library library)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,UserId")] Library library)
         {
             if (id != library.Id)
             {
@@ -130,14 +125,13 @@ namespace Home_Library.Controllers
         // GET: Libraries/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
+
+            if (id == null) { return NotFound(); }
 
             var library = await _context.Library
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (library == null)
+            if (library == null || library.UserId != user.Id)
             {
                 return NotFound();
             }
@@ -162,22 +156,16 @@ namespace Home_Library.Controllers
 
         public async Task<IActionResult> List(int? id, string Style)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
             var library = await _context.Library.FindAsync(id);
 
-            //var query = from game in _context.Game
-            //            where game.Libraries.Any(l=>l.Id==library.Id)
-            //            select game;
+            if (id == null) { return NotFound(); }
+            if (library == null || library.UserId != user.Id) { return NotFound(); }
 
             var query = _context.Game
                 .Where(g => g.Libraries!
                     .Any(library => library.Id == id))
                 .ToList();
-            //ViewData["gameList"] = query;
 
             var libraryVM = new LibraryViewModel
             {
@@ -193,12 +181,11 @@ namespace Home_Library.Controllers
 
         public async Task<IActionResult> Assign(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
             var library = await _context.Library.FindAsync(id);
+
+            if (id == null) { return NotFound(); }
+            if (library == null || library.UserId != user.Id) { return NotFound(); }
 
             var query_all = _context.Game
                 .Where(g => g.Libraries!
@@ -207,7 +194,6 @@ namespace Home_Library.Controllers
             var query = _context.Game
                 .Except(query_all)
                 .ToList();
-            //ViewData["gameList"] = query;
 
             var libraryVM = new LibraryViewModel
             {
@@ -223,12 +209,8 @@ namespace Home_Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Assign(int? id, int[] selectedItemIds)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var library = await _context.Library.FindAsync(id);
+
             foreach (var itemId in selectedItemIds)
             {
                 var game = await _context.Game.FindAsync(itemId);
@@ -245,18 +227,16 @@ namespace Home_Library.Controllers
 
         public async Task<IActionResult> Unassign(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            ApplicationUser user = _userManager.FindByNameAsync(User.Identity!.Name!).Result!;
             var library = await _context.Library.FindAsync(id);
+
+            if (id == null) { return NotFound(); }
+            if (library == null || library.UserId != user.Id) { return NotFound(); }
 
             var query = _context.Game
                 .Where(g => g.Libraries!
                     .Any(library => library.Id == id))
                 .ToList();
-            //ViewData["gameList"] = query;
 
             var libraryVM = new LibraryViewModel
             {
@@ -271,7 +251,6 @@ namespace Home_Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Unassign(int id, int[] selectedItemIds)
         {
-            //var library = await _context.Library.FindAsync(libraryId);
             var library = await _context.Library.Include(library => library.Games).SingleOrDefaultAsync(library => library.Id == id);
             foreach (var itemId in selectedItemIds)
             {
