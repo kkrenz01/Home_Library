@@ -14,6 +14,7 @@ namespace Home_Library.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ApplicationDbContext>>()))
             {
+                context.Database.EnsureCreated();
                 if (context.Game.Any())
                 {
                     return;   // DB has been seeded
@@ -35,7 +36,7 @@ namespace Home_Library.Models
                         Publisher = "Square Enix",
                         Platform = "NDS",
                         ReleaseDate = DateTime.Parse("2008-04-18"),
-                        CoverPath = "/Images/covers/games/TheWorldEndsWithYou_NDS_PAL.jpg"
+                        CoverPath = "/Images/covers/games/TheWorldEndsWithYou_NDS_NTSC.jpg"
                     },
                     new Game
                     {
@@ -89,7 +90,7 @@ namespace Home_Library.Models
                         Publisher = "Nintendo",
                         Platform = "3DS",
                         ReleaseDate = DateTime.Parse("2012-03-23"),
-                        CoverPath = "/Images/covers/games/KidIcarusUprising_3DS_NTSC.jpg"
+                        CoverPath = "/Images/covers/games/KidIcarusUprising_3DS_PAL.jpg"
                     },
                     new Game
                     {
