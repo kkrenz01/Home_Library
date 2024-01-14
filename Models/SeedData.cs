@@ -117,7 +117,7 @@ namespace Home_Library.Models
                         Publisher = "Capcom",
                         Platform = "GCN",
                         ReleaseDate = DateTime.Parse("2006-01-10"),
-                        CoverPath = "/Images/covers/games/MegaManX_Collection_NGC_NTSC.jpg"
+                        CoverPath = "/Images/covers/games/MegaManX_Collection_GCN_NTSC.jpg"
                     },
                     new Game
                     {
