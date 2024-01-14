@@ -49,10 +49,10 @@
         </form>
     </div>
 
-    @if (Model.CoverPath == null) {Model.CoverPath = "\\Images\\covers\\games\\_blank.jpg";}
+    @if (!System.IO.File.Exists("wwwroot"+Model.CoverPath)) {Model.CoverPath = "\\Images\\covers\\_blank.jpg";}
     <div class="col">
         <div class="cover" style="width: auto; height: auto;">
-            <img style="width:auto;height:500px; border: 1px solid black; align-content:center" src="@Model.CoverPath" />
+            <img style="width:45%;height:auto; border: 1px solid black; align-content:center" src="@Model.CoverPath" />
         </div>
     </div>
 </div>
