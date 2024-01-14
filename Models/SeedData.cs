@@ -106,7 +106,7 @@ namespace Home_Library.Models
                         Developer = "Capcom",
                         Publisher = "Capcom",
                         Platform = "PS4",
-                        ReleaseDate = DateTime.Parse(""),
+                        ReleaseDate = DateTime.Parse("2015-08-24"),
                         CoverPath = "/Images/covers/games/MegaMan_LegacyCollection_PS4_NTSC.jpg"
                     },
                     new Game
@@ -115,7 +115,7 @@ namespace Home_Library.Models
                         Developer = "Capcom",
                         Publisher = "Capcom",
                         Platform = "GCN",
-                        ReleaseDate = DateTime.Parse(""),
+                        ReleaseDate = DateTime.Parse("2006-01-10"),
                         CoverPath = "/Images/covers/games/MegaManX_Collection_NGC_NTSC.jpg"
                     },
                     new Game
